@@ -1,19 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
-import "fastbootstrap/dist/css/fastbootstrap.min.css";
-import "bootstrap/dist/css/bootstrap.css";
 import "../public/css/style.css";
+import "../public/fonts/material-icon/css/material-design-iconic-font.min.css";
+import ToastNotification from "@/components/TOASTS";
+import { login } from "@/lib";
 
 export default function Home() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSignUpSwitch = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
   };
 
-  useEffect(() => {
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
+  const handleLogin = (event) => {
+    event.preventDefault();
+    login(username, password);
+  };
+
   return (
     <div className="main">
       {/* SIGN UP */}
@@ -104,7 +109,11 @@ export default function Home() {
                 <figure>
                   <img src="images/signup-image.jpg" alt="sing up image" />
                 </figure>
-                <a href="#" className="signup-image-link" onClick={handleSignUpSwitch}>
+                <a
+                  href="#"
+                  className="signup-image-link"
+                  onClick={handleSignUpSwitch}
+                >
                   I am already member
                 </a>
               </div>
@@ -130,7 +139,7 @@ export default function Home() {
               </div>
 
               <div className="signin-form">
-                <h2 className="form-title">Sign up</h2>
+                <h2 className="form-title">Sign In</h2>
                 <form method="POST" className="register-form" id="login-form">
                   <div className="form-group">
                     <label for="your_name">
@@ -140,7 +149,9 @@ export default function Home() {
                       type="text"
                       name="your_name"
                       id="your_name"
-                      placeholder="Your Name"
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
                   <div className="form-group">
@@ -152,6 +163,8 @@ export default function Home() {
                       name="your_pass"
                       id="your_pass"
                       placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div className="form-group">
@@ -175,32 +188,14 @@ export default function Home() {
                       id="signin"
                       className="form-submit"
                       value="Log in"
+                      onClick={handleLogin}
                     />
                   </div>
                 </form>
-                <div className="social-login">
-                  <span className="social-label">Or login with</span>
-                  <ul className="socials">
-                    <li>
-                      <a href="#">
-                        <i className="display-flex-center zmdi zmdi-facebook"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i className="display-flex-center zmdi zmdi-twitter"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i className="display-flex-center zmdi zmdi-google"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
+          <ToastNotification />
         </section>
       )}
     </div>

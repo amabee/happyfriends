@@ -4,7 +4,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Happy Friends",
-  description: "Wtf",
+  description: "All in one Social Media",
 };
 
 export default function RootLayout({ children }) {
